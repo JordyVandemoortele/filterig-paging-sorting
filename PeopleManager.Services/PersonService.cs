@@ -19,12 +19,13 @@ namespace PeopleManager.Services
         }
 
         //Find
-        public async Task<IList<PersonResult>> FindAsync()
+        public async Task<IList<PersonResult>> FindAsync(Paging paging)
         {
             return await _dbContext.People
                 .OrderBy(p => p.FirstName)
                 .ThenBy(p => p.LastName)
                 .ProjectToResults()
+                .AddPaging(paging)
                 .ToListAsync();
         }
 
